@@ -1,0 +1,1335 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QVCT 360° — Pilotage RH, QVCT et performance sociale</title>
+
+<style>
+:root{
+  --primary:#24535a;--secondary:#5e8b7e;--accent:#f6c177;--danger:#c2414b;--dark:#183a3f;
+  --text:#1f2937;--muted:#5b6472;--line:#d9e6e1;--soft:#eef6ff;--good:#f1f8f6;
+  --warn:#fff9e8;--alert:#fff1f2;--white:#ffffff;--shadow:0 14px 35px rgba(31,41,55,.11);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:linear-gradient(135deg,#eef6ff,#f4f8f7 45%,#fff9e8);line-height:1.6}
+header{background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);padding:46px 20px}
+.header-inner{max-width:1240px;margin:auto;display:grid;grid-template-columns:1.35fr .65fr;gap:24px;align-items:center}
+h1{font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.05;margin:0 0 12px;color:var(--dark)}
+h2{color:#214c52;margin-top:0;font-size:clamp(1.5rem,3vw,2.25rem)}
+h3{color:#2f5d62;margin:0 0 8px}
+.lead{font-size:1.1rem;color:var(--muted);max-width:1040px}
+.badge{display:inline-block;background:#e8f3ef;color:#214c52;padding:6px 12px;border-radius:999px;font-weight:800;margin:4px}
+.card,.panel,.hero-card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.hero-card{padding:22px}
+nav{position:relative;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);padding:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+nav button{border:0;border-radius:999px;padding:9px 14px;background:#e8f3ef;color:#214c52;font-weight:800;cursor:pointer}
+nav button.active,nav button:hover{background:var(--primary);color:white}
+main{max-width:1240px;margin:30px auto;padding:0 32px}
+.panel{display:none;padding:34px;margin-bottom:28px}
+.panel.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:18px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-top:18px}
+.card{padding:20px}.good{background:var(--good)}.soft{background:var(--soft)}.warn{background:var(--warn)}.alert{background:var(--alert)}.white{background:white}
+.kpi{font-size:2rem;font-weight:900;color:var(--dark)}.small{color:var(--muted);font-size:.92rem}
+table{width:100%;border-collapse:collapse;background:white;border-radius:16px;overflow:hidden;margin-top:18px}
+th,td{border:1px solid var(--line);padding:12px;vertical-align:top}
+th{background:#e8f3ef;color:#214c52}
+.btn{display:inline-block;border:0;border-radius:12px;padding:11px 16px;background:var(--primary);color:white;text-decoration:none;font-weight:800;cursor:pointer;margin:6px 6px 6px 0}
+.btn.secondary{background:var(--secondary)}.btn.ghost{background:white;color:var(--primary);border:1px solid var(--line)}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
+label{font-weight:800;color:#214c52}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;font:inherit;background:white}
+textarea{min-height:90px}.result{margin-top:20px;padding:20px;border-radius:18px;border:1px solid var(--line);background:white}
+.raci-table select{min-width:72px;max-width:90px;border-radius:10px;padding:8px;background:#fff;font-weight:700;color:#214c52;text-align:center}
+.raci-table td:first-child{font-weight:700;color:#214c52}
+.raci-help{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+.raci-help .card{box-shadow:none}
+@media print{.raci-table select{border:0;background:transparent;padding:0;appearance:none}}
+
+.bar-wrap{margin-top:18px;display:grid;gap:12px}.bar-row{display:grid;grid-template-columns:190px 1fr 92px;gap:10px;align-items:center}
+.bar-bg{height:24px;background:#edf2f7;border-radius:999px;overflow:hidden}.bar{height:100%;width:0%;background:linear-gradient(90deg,#c2414b,#f6c177,#5e8b7e)}
+.risk-dot{display:inline-block;width:16px;height:16px;border-radius:50%;vertical-align:middle;margin-right:8px}.green{background:#5e8b7e}.orange{background:#f6c177}.red{background:#c2414b}
+.flow{display:grid;gap:12px;margin-top:18px}.flow-step{padding:14px 18px;border-radius:16px;background:white;border:1px solid var(--line);font-weight:800;text-align:center}
+.arrow{text-align:center;color:var(--primary);font-size:1.6rem;font-weight:900}.source-link{color:#24535a;font-weight:800}
+.notice{border-left:6px solid var(--primary);padding:14px 16px;background:#fff;border-radius:14px;margin:14px 0}
+
+.accordion{display:grid;gap:12px;margin-top:18px}
+.accordion details{background:white;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 20px rgba(31,41,55,.06);overflow:hidden}
+.accordion summary{cursor:pointer;padding:16px 18px;font-weight:900;color:#214c52;background:#e8f3ef;list-style:none}
+.accordion summary::-webkit-details-marker{display:none}
+.accordion summary::after{content:"+";float:right;font-size:1.3rem;color:var(--primary)}
+.accordion details[open] summary::after{content:"–"}
+.accordion .accordion-body{padding:18px}
+.panel > p.lead,.panel > .notice,.panel > h3,.panel > ul{margin-left:0}
+.print-only{display:none}
+footer{text-align:center;color:var(--muted);padding:28px}
+
+.fillable-table input,.fillable-table textarea{border:0;border-radius:8px;background:#fbfefd;min-height:38px}
+.fillable-table textarea{min-height:42px;resize:vertical}
+.fillable-table input:focus,.fillable-table textarea:focus{outline:2px solid #5e8b7e;background:white}
+.inline-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+.priority-list{display:grid;gap:10px;margin-top:10px}
+.priority-line{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:center}
+@media print{.fillable-table input,.fillable-table textarea,.inline-fields input,.priority-line input{border:0;border-bottom:1px solid #111;border-radius:0;background:white;padding:3px}.fillable-table textarea{border:1px solid #111;min-height:34px}.interactive-actions{display:none!important}}
+
+
+.print-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 20px;align-items:center}
+.print-note{font-size:.92rem;color:var(--muted);margin-left:4px}
+.print-page{background:white;border:1px solid var(--line);border-radius:18px;padding:18px;margin:18px 0;break-inside:avoid;page-break-inside:avoid}
+.form-section-title{margin:0 0 10px;color:#214c52;font-size:1.05rem;font-weight:900}
+
+@page{size:A4 portrait;margin:12mm}
+@media print{
+  html,body{width:210mm;min-height:297mm}
+  body{font-size:10.5pt;line-height:1.35;color:#111;background:white!important}
+  #formulaireVierge h2{font-size:18pt;margin:0 0 6mm;color:#111}
+  #formulaireVierge .lead,#formulaireVierge .notice{display:none!important}
+  #formulaireViergeBloc{border:0!important;padding:0!important;margin:0!important;box-shadow:none!important;background:white!important}
+  .print-page{border:0!important;border-radius:0!important;padding:0!important;margin:0!important;box-shadow:none!important;background:white!important;page-break-after:always;break-after:page}
+  .print-page:last-child{page-break-after:auto;break-after:auto}
+  .inline-fields{grid-template-columns:1fr 1fr!important;gap:7mm 8mm!important;margin:5mm 0!important}
+  .inline-fields label{font-size:9.5pt;color:#111}
+  .inline-fields input,.priority-line input{font-size:10pt;min-height:7mm!important}
+  .fillable-table{font-size:9.2pt;margin-top:4mm!important;width:100%!important;table-layout:fixed}
+  .fillable-table th,.fillable-table td{padding:4mm 2.5mm!important}
+  .fillable-table th:nth-child(1),.fillable-table td:nth-child(1){width:40%}
+  .fillable-table th:nth-child(2),.fillable-table td:nth-child(2){width:14%;text-align:center}
+  .fillable-table th:nth-child(3),.fillable-table td:nth-child(3){width:46%}
+  .fillable-table input{min-height:6mm!important;text-align:center}
+  .fillable-table textarea{min-height:9mm!important;resize:none;overflow:hidden}
+  .priority-list{gap:5mm!important}
+  .priority-line{grid-template-columns:7mm 1fr!important}
+  #formulaireViergeResult{font-size:10pt;margin-top:8mm!important;padding:4mm!important;border:1px solid #999!important;break-inside:avoid;page-break-inside:avoid}
+  table,tr,td,th{page-break-inside:avoid;break-inside:avoid}
+}
+
+@media(max-width:850px){.header-inner{grid-template-columns:1fr}.bar-row{grid-template-columns:1fr}main{padding:0 14px}.panel{padding:22px}}
+
+@media print{
+  body{background:white}
+  header,nav,footer,.btn,.no-print{display:none!important}
+  main{max-width:100%;margin:0;padding:0}
+  .panel{display:none!important;box-shadow:none;border:none;padding:0;margin:0}
+  .panel.print-target{display:block!important}
+  .print-only{display:block!important}
+  .card,.result{box-shadow:none}
+  table{break-inside:auto}
+  tr{break-inside:avoid}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>QVCT 360°</h1>
+      <p class="lead">
+        Démonstrateur de pilotage RH, QVCT et performance sociale : questionnaire trimestriel,
+        analyse par service, absentéisme, synthèse imprimable, formulaire vierge, ROI RH, gouvernance stratégique et amélioration continue.
+      </p>
+      
+      <div style="margin-top:18px">
+        <button class="btn" onclick="openPanel('questionnaire', this)">Commencer une démonstration</button>
+        <button class="btn secondary" onclick="openPanel('notice', this)">Lire la notice</button>
+        <button class="btn ghost" onclick="resetAll()">Tout remettre à zéro</button>
+      </div>
+    </div>
+    <aside class="hero-card">
+      <h3>Principe de fonctionnement</h3>
+      <p>
+        L’outil repose sur des données renseignées par service, par pôle ou à l’échelle d’une collectivité.
+        Les indicateurs sont calculés automatiquement selon des formules affichées et vérifiables.
+      </p>
+    </aside>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="openPanel('accueil', this)">Accueil</button>
+  <button onclick="openPanel('notice', this)">Notice d'utilisation</button>
+  <button onclick="openPanel('methodologie', this)">Méthodologie</button>
+  <button onclick="openPanel('questionnaire', this)">Questionnaire</button>
+  <button onclick="openPanel('formulaireHtml', this)">Formulaire service</button>
+  <button onclick="openPanel('absenteisme', this)">Absentéisme</button>
+  <button onclick="openPanel('synthese', this)">Synthèse service</button>
+  <button onclick="openPanel('formulaireVierge', this)">Formulaire vierge</button>
+  <button onclick="openPanel('tableauDirection', this)">Tableau direction</button>
+  <button onclick="openPanel('diagramme', this)">Diagramme</button>
+  <button onclick="openPanel('cartographie', this)">Cartographie</button>
+  <button onclick="openPanel('planAuto', this)">Plan automatique</button>
+  <button onclick="openPanel('roi', this)">ROI RH</button>
+  <button onclick="openPanel('gouvernance', this)">Gouvernance</button>
+  <button onclick="openPanel('exemples', this)">Exemples</button>
+  <button onclick="openPanel('sources', this)">Sources</button>
+</nav>
+
+<main>
+
+<section id="accueil" class="panel active">
+  <h2>Un outil de démonstration orienté décision</h2>
+  <p class="lead">
+    QVCT 360° est un <strong>démonstrateur méthodologique</strong> de diagnostic RH, QVCT et aide à la décision.
+    Il ne s’agit pas d’un logiciel métier déployé, ni d’un outil officiel de la collectivité.
+    Les champs peuvent être renseignés avec des données fictives ou de simulation pour tester la méthode.
+  </p>
+  <div class="notice">
+    <strong>Principe méthodologique :</strong> les indicateurs présentés dans l’outil sont générés à partir des données
+    renseignées par l’utilisateur : effectif, répondants, jours d’absence, dimensions QVCT et hypothèses de coût.
+    Chaque calcul est accompagné de sa formule afin de permettre une lecture transparente.
+  </div>
+  <div class="grid">
+    <div class="card good"><h3>1. Saisir</h3><p>Questionnaire par service avec données vierges à l’ouverture.</p></div>
+    <div class="card soft"><h3>2. Calculer</h3><p>Score QVCT, participation, absentéisme et ROI selon des formules affichées.</p></div>
+    <div class="card warn"><h3>3. Décider</h3><p>Niveau de vigilance, cartographie et plan d’action automatique.</p></div>
+    <div class="card white"><h3>4. Imprimer</h3><p>Formulaire vierge ou synthèse service uniquement, pas les 18 pages du site.</p></div>
+  </div>
+</section>
+
+
+
+<section id="notice" class="panel">
+  <h2>Notice d’utilisation — démonstrateur QVCT 360°</h2>
+
+  <div class="notice alert">
+    <strong>Point essentiel :</strong> QVCT 360° est un <strong>démonstrateur méthodologique</strong>.
+    Il sert à présenter une démarche de pilotage RH, une logique d’indicateurs et une gouvernance possible.
+    Ce n’est pas un logiciel officiel, ce n’est pas un produit commercial et ce n’est pas une application déployée dans une collectivité.
+  </div>
+
+  <div class="grid-2">
+    <div class="card good">
+      <h3>1. Ce que le démonstrateur montre</h3>
+      <ul>
+        <li>Une méthode de diagnostic QVCT par service.</li>
+        <li>Une structuration d’indicateurs RH lisibles.</li>
+        <li>Un exemple de tableau de bord direction.</li>
+        <li>Une cartographie des niveaux de vigilance.</li>
+        <li>Un plan d’action automatique à partir des résultats.</li>
+        <li>Une simulation de ROI RH liée à l’absentéisme.</li>
+        <li>Une gouvernance associant direction, DRH, managers, prévention et dialogue social.</li>
+      </ul>
+    </div>
+
+    <div class="card warn">
+      <h3>2. Ce que le démonstrateur ne prétend pas être</h3>
+      <ul>
+        <li>Ce n’est pas un logiciel RH homologué.</li>
+        <li>Ce n’est pas une base de données RH.</li>
+        <li>Ce n’est pas un diagnostic médical, psychologique ou juridique.</li>
+        <li>Ce n’est pas un référentiel national officiel de notation QVCT.</li>
+        <li>Ce n’est pas un outil de décision automatique se substituant à la direction.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top:26px">Mode d’emploi rapide</h3>
+  <div class="flow">
+    <div class="flow-step">1. Ouvrir le questionnaire et saisir un pôle, un service, un effectif et un nombre de répondants</div><div class="arrow">↓</div>
+    <div class="flow-step">2. Renseigner les dix dimensions QVCT avec des notes de 0 à 10</div><div class="arrow">↓</div>
+    <div class="flow-step">3. Cliquer sur « Calculer l’analyse » pour obtenir le score, le taux de participation et le niveau de vigilance</div><div class="arrow">↓</div>
+    <div class="flow-step">4. Consulter les modules : synthèse, absentéisme, tableau direction, cartographie, plan automatique, ROI RH et gouvernance</div><div class="arrow">↓</div>
+    <div class="flow-step">5. Imprimer uniquement la synthèse ou le formulaire vierge si besoin</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card soft">
+      <h3>Données utilisées</h3>
+      <p>Le démonstrateur est vierge à l’ouverture. Les données saisies peuvent être fictives, simulées ou remplacées par des données réelles uniquement dans le cadre d’un test méthodologique.</p>
+      <p>Aucune donnée n’est transmise à un serveur. Aucune base de données n’est intégrée. Les informations saisies disparaissent à la fermeture ou lors de la remise à zéro.</p>
+    </div>
+
+    <div class="card white">
+      <h3>Lecture des calculs</h3>
+      <p>Les calculs sont volontairement simples et affichés de manière transparente. Le score QVCT interne n’est pas un score national officiel : il sert à comparer, prioriser et déclencher une analyse managériale.</p>
+      <p>Le ROI RH est une simulation : il dépend des hypothèses renseignées et ne constitue pas un résultat financier certifié.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:26px">Questions fréquentes — réponses cadrées</h3>
+  <table>
+    <thead><tr><th>Question possible</th><th>Réponse à donner</th></tr></thead>
+    <tbody>
+      <tr><td>Est-ce un outil déjà déployé dans une collectivité ?</td><td>Non. C’est un démonstrateur méthodologique, conçu pour illustrer une méthode de pilotage RH et QVCT.</td></tr>
+      <tr><td>Les données sont-elles réelles ?</td><td>Non par défaut. Le démonstrateur est vierge ; les données saisies servent uniquement à simuler le fonctionnement.</td></tr>
+      <tr><td>Le score QVCT est-il officiel ?</td><td>Non. C’est un indicateur interne de pilotage, à rapprocher des données RH réelles, du RSU, du DUERP et du plan de prévention.</td></tr>
+      <tr><td>L’outil remplace-t-il une décision RH ?</td><td>Non. Il aide à structurer l’analyse ; la décision reste managériale, RH et institutionnelle.</td></tr>
+      <tr><td>Pourquoi l’avoir conçu ?</td><td>Pour démontrer une capacité à analyser un besoin, structurer des indicateurs, proposer une gouvernance et transformer des données RH en aide à la décision.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="notice">
+    <strong>Positionnement professionnel :</strong> ce démonstrateur illustre des compétences transférables vers une fonction de pilotage :
+    analyse des besoins, amélioration continue, conduite de projet, structuration d’indicateurs, gouvernance RH, accompagnement des managers et aide à la décision.
+  </div>
+</section>
+
+<section id="methodologie" class="panel">
+  <h2>Note méthodologique — calculs et références officielles</h2>
+
+  <p class="lead">
+    Cette rubrique précise les formules utilisées dans l’outil et leur niveau de référence.
+    Le cadre officiel principal pour les collectivités territoriales est le Rapport Social Unique,
+    alimenté par la Base de Données Sociales. Le RSU regroupe notamment les informations relatives
+    à l’emploi, la formation, la santé et sécurité au travail, l’organisation du travail,
+    l’amélioration des conditions et de la qualité de vie au travail et le dialogue social.
+  </p>
+
+  <div class="notice">
+    <strong>Point de méthode :</strong> il n’existe pas un score national unique imposé par le ministère
+    pour mesurer la QVCT d’un service sous forme de note sur 100. Le score proposé ici est donc un
+    indicateur interne de pilotage. En revanche, les données RH de référence doivent être rapprochées
+    du RSU, de la Base de Données Sociales, des bilans sociaux et des tableaux de bord internes de la collectivité.
+  </div>
+
+  <div class="accordion">
+    <details open>
+      <summary>1. Taux de participation</summary>
+      <div class="accordion-body">
+        <p><strong>Formule :</strong> nombre de répondants ÷ effectif du service × 100.</p>
+        <p class="small">Cet indicateur mesure la représentativité du questionnaire. Plus le taux de participation est faible, plus l’analyse doit être interprétée avec prudence.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>2. Score QVCT interne</summary>
+      <div class="accordion-body">
+        <p><strong>Formule :</strong> addition des 10 dimensions notées sur 10 = score sur 100.</p>
+        <p class="small">Ce score est un indicateur interne de pilotage, non un indicateur national officiel. Il permet de comparer les services entre eux, de repérer les fragilités et de déclencher un plan d’action.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>3. Taux d’absentéisme</summary>
+      <div class="accordion-body">
+        <p><strong>Formule RH utilisée :</strong> jours d’absence ÷ jours théoriquement travaillés × 100.</p>
+        <p class="small">Pour être exploitable, le périmètre doit être précisé : maladie ordinaire, accident de service, accident du travail, maladie professionnelle, absences injustifiées ou autre périmètre défini par la collectivité.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>4. Niveau de vigilance</summary>
+      <div class="accordion-body">
+        <p><strong>Principe :</strong> le niveau est déterminé à partir du score QVCT interne.</p>
+        <p class="small">Ce niveau ne constitue pas un diagnostic médical ou juridique. Il sert uniquement à hiérarchiser les priorités d’action pour les chefs de service, directeurs de pôle, RH et acteurs prévention.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>5. ROI RH</summary>
+      <div class="accordion-body">
+        <p><strong>Formule :</strong> jours d’absence évités × coût moyen estimé par jour - coût du dispositif.</p>
+        <p class="small">Le ROI est une simulation d’aide à la décision. Il dépend des hypothèses retenues et doit être consolidé, si nécessaire, avec les services RH, Finances ou Contrôle de gestion.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>6. Cadre officiel à rapprocher</summary>
+      <div class="accordion-body">
+        <p>Les données de l’outil peuvent être rapprochées du RSU, document annuel obligatoire dans les collectivités, qui compile les données RH et contribue à l’analyse des politiques RH, aux lignes directrices de gestion et au dialogue social.</p>
+      </div>
+    </details>
+  </div>
+
+  <h3 style="margin-top:24px">Liens institutionnels de référence</h3>
+  <ul>
+    <li>
+      <a class="source-link" href="https://www.collectivites-locales.gouv.fr/fonction-publique-territoriale/le-rapport-social-unique-rsu" target="_blank">
+        Collectivités locales — Rapport Social Unique des collectivités territoriales
+      </a>
+    </li>
+    <li>
+      <a class="source-link" href="https://www.fonction-publique.gouv.fr/etudes-statistiques-et-publications/la-base-de-donnees-sociales-bds" target="_blank">
+        Portail de la Fonction publique — Base de Données Sociales
+      </a>
+    </li>
+    <li>
+      <a class="source-link" href="https://www.service-public.fr/particuliers/vosdroits/N19806" target="_blank">
+        Service-Public — Fonction publique : droits, temps de travail, congés et carrière
+      </a>
+    </li>
+    <li>
+      <a class="source-link" href="https://www.fonction-publique.gouv.fr/etre-agent-public/mon-quotidien-au-travail/qualite-de-vie-au-travail/la-qualite-de-vie-et-des-conditions-de-travail" target="_blank">
+        Fonction publique — Qualité de vie et conditions de travail
+      </a>
+    </li>
+  </ul>
+</section>
+
+<section id="questionnaire" class="panel">
+  <h2>Questionnaire trimestriel par service</h2>
+  <p class="lead">Les champs sont vides à l’ouverture. Les valeurs peuvent être saisies, modifiées ou remplacées par des données de simulation.</p>
+
+  <div class="form-grid">
+    <div><label>Pôle</label><input id="pole" placeholder="Ex. Pôle Famille / Éducation"></div>
+    <div><label>Service</label><input id="service" placeholder="Ex. Éducation"></div>
+    <div><label>Chef de service</label><input id="chef" placeholder="Nom ou fonction"></div>
+    <div><label>Nombre d’agents du service</label><input type="number" id="agentsService" min="1" placeholder="Ex. 45"></div>
+    <div><label>Nombre de répondants</label><input type="number" id="repondantsService" min="1" placeholder="Ex. 32"></div>
+    <div><label>Charge de travail maîtrisable /10</label><input type="number" id="charge" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Clarté des consignes /10</label><input type="number" id="consignes" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Moyens disponibles /10</label><input type="number" id="moyens" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Reconnaissance du travail /10</label><input type="number" id="reconnaissance" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Qualité du management /10</label><input type="number" id="management" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Coopération dans l’équipe /10</label><input type="number" id="cooperation" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Tensions maîtrisées /10</label><input type="number" id="tensions" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Conditions matérielles /10</label><input type="number" id="materiel" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Formation suffisante /10</label><input type="number" id="formation" min="0" max="10" placeholder="0 à 10"></div>
+    <div><label>Autonomie /10</label><input type="number" id="autonomie" min="0" max="10" placeholder="0 à 10"></div>
+  </div>
+
+  <button class="btn" onclick="calculerService()">Calculer l’analyse</button>
+  <button class="btn secondary" onclick="ajouterAuDiagramme()">Ajouter au diagramme</button>
+  <button class="btn ghost" onclick="resetQuestionnaire()">Vider le questionnaire</button>
+
+  <div id="resultatService" class="result">Aucun calcul réalisé.</div>
+</section>
+
+
+<section id="formulaireHtml" class="panel">
+  <h2>Formulaire de saisie d’un service</h2>
+
+  <p class="lead">
+    Ce formulaire peut être utilisé comme écran de saisie opérationnel pour un chef de service,
+    un directeur de pôle, la DRH ou un référent QVCT. Il reprend les données nécessaires au diagnostic.
+  </p>
+
+  <form id="formServiceHtml" onsubmit="event.preventDefault(); transfererFormulaire();">
+    <div class="form-grid">
+      <div>
+        <label for="fPole">Pôle / direction</label>
+        <input id="fPole" name="pole" placeholder="Ex. Pôle Famille / Éducation">
+      </div>
+
+      <div>
+        <label for="fService">Service</label>
+        <input id="fService" name="service" placeholder="Ex. Éducation">
+      </div>
+
+      <div>
+        <label for="fResponsable">Responsable / chef de service</label>
+        <input id="fResponsable" name="responsable" placeholder="Nom ou fonction">
+      </div>
+
+      <div>
+        <label for="fPeriode">Période d’analyse</label>
+        <select id="fPeriode" name="periode">
+          <option value="">Choisir une période</option>
+          <option>1er trimestre</option>
+          <option>2e trimestre</option>
+          <option>3e trimestre</option>
+          <option>4e trimestre</option>
+          <option>Année complète</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="fAgents">Nombre d’agents</label>
+        <input type="number" id="fAgents" name="agents" min="1" placeholder="Ex. 45">
+      </div>
+
+      <div>
+        <label for="fRepondants">Nombre de répondants</label>
+        <input type="number" id="fRepondants" name="repondants" min="0" placeholder="Ex. 32">
+      </div>
+
+      <div>
+        <label for="fAbsences">Jours d’absence sur la période</label>
+        <input type="number" id="fAbsences" name="absences" min="0" placeholder="Ex. 620">
+      </div>
+
+      <div>
+        <label for="fBase">Base de jours théoriques par agent</label>
+        <input type="number" id="fBase" name="base" min="1" placeholder="Ex. 228">
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px">Évaluation QVCT — note de 0 à 10</h3>
+
+    <div class="form-grid">
+      <div><label for="fCharge">Charge de travail maîtrisable</label><input type="number" id="fCharge" min="0" max="10"></div>
+      <div><label for="fConsignes">Clarté des consignes</label><input type="number" id="fConsignes" min="0" max="10"></div>
+      <div><label for="fMoyens">Moyens disponibles</label><input type="number" id="fMoyens" min="0" max="10"></div>
+      <div><label for="fReconnaissance">Reconnaissance du travail</label><input type="number" id="fReconnaissance" min="0" max="10"></div>
+      <div><label for="fManagement">Qualité du management</label><input type="number" id="fManagement" min="0" max="10"></div>
+      <div><label for="fCooperation">Coopération dans l’équipe</label><input type="number" id="fCooperation" min="0" max="10"></div>
+      <div><label for="fTensions">Tensions maîtrisées</label><input type="number" id="fTensions" min="0" max="10"></div>
+      <div><label for="fMateriel">Conditions matérielles</label><input type="number" id="fMateriel" min="0" max="10"></div>
+      <div><label for="fFormation">Formation suffisante</label><input type="number" id="fFormation" min="0" max="10"></div>
+      <div><label for="fAutonomie">Autonomie</label><input type="number" id="fAutonomie" min="0" max="10"></div>
+    </div>
+
+    <div style="margin-top:18px">
+      <label for="fCommentaire">Commentaires / éléments qualitatifs</label>
+      <textarea id="fCommentaire" placeholder="Difficultés constatées, besoins exprimés, actions déjà engagées..."></textarea>
+    </div>
+
+    <button class="btn" type="submit">Transférer vers le questionnaire</button>
+    <button class="btn secondary" type="button" onclick="calculerFormulaireService()">Calculer depuis le formulaire</button>
+    <button class="btn ghost" type="button" onclick="document.getElementById('formServiceHtml').reset(); document.getElementById('formulaireResult').innerHTML='Aucun calcul réalisé.';">Vider le formulaire</button>
+  </form>
+
+  <div id="formulaireResult" class="result">Aucun calcul réalisé.</div>
+</section>
+
+<section id="absenteisme" class="panel">
+  <h2>Calcul de l’absentéisme</h2>
+  <p class="lead">Calcul RH défendable : jours d’absence divisés par les jours théoriquement travaillés.</p>
+
+  <div class="form-grid">
+    <div><label>Service concerné</label><input id="serviceAbs" placeholder="Ex. Éducation"></div>
+    <div><label>Nombre d’agents</label><input type="number" id="agentsAbs" min="1" placeholder="Ex. 45"></div>
+    <div><label>Jours d’absence cumulés sur la période</label><input type="number" id="joursAbs" min="0" placeholder="Ex. 620"></div>
+    <div><label>Base de jours théoriquement travaillés par agent</label><input type="number" id="joursBase" min="1" placeholder="Ex. 228"></div>
+    <div><label>Périmètre retenu</label>
+      <select id="perimetreAbs">
+        <option value="">Choisir</option>
+        <option>Maladie ordinaire</option>
+        <option>Maladie ordinaire + accident de service/travail</option>
+        <option>Maladie ordinaire + AT/MP + absences injustifiées</option>
+        <option>Périmètre interne à préciser</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn" onclick="calculerAbsenteisme()">Calculer le taux</button>
+  <div id="resultatAbsenteisme" class="result">Aucun calcul réalisé.</div>
+  <div class="notice">
+    <strong>Méthode RH :</strong> taux d’absentéisme = jours d’absence ÷ jours théoriquement travaillés × 100.
+    Le point sensible n’est pas la formule, mais le périmètre des absences retenues.
+  </div>
+</section>
+
+<section id="synthese" class="panel">
+  <h2>Synthèse imprimable du service</h2>
+  <p class="lead">Cette page est conçue pour une impression courte, utile à une direction, une DRH ou un chef de service.</p>
+
+  <button class="btn" onclick="genererSynthese()">Générer la synthèse</button>
+  <button class="btn secondary" onclick="printSection('synthese')">Imprimer la synthèse</button>
+
+  <div id="syntheseResult" class="result">Aucune synthèse générée.</div>
+</section>
+
+<section id="formulaireVierge" class="panel">
+  <h2>Formulaire interactif, remplissable et imprimable</h2>
+  <p class="lead">Formulaire remplissable directement dans la page. Le bouton d’impression génère une sortie A4 organisée page par page pour éviter les coupures.</p>
+
+  <div class="interactive-actions print-toolbar no-print">
+    <button class="btn secondary" onclick="printSection('formulaireVierge')">🖨️ Imprimer / exporter en PDF</button>
+    <button class="btn" onclick="calculerFormulaireVierge()">Calculer le score</button>
+    <button class="btn secondary" onclick="transfererViergeVersQuestionnaire()">Transférer vers le questionnaire</button>
+    <button class="btn ghost" onclick="viderFormulaireVierge()">Vider le formulaire</button>
+    <span class="print-note">L’impression est réglée en A4, avec séparation page par page.</span>
+  </div>
+
+  <div class="notice">
+    <strong>Utilisation :</strong> saisir les informations du service, noter chaque dimension de 0 à 10, ajouter les commentaires courts, puis calculer le score ou imprimer la fiche.
+  </div>
+
+  <div class="result" id="formulaireViergeBloc">
+    <div class="print-page">
+    <h3>Questionnaire trimestriel QVCT</h3>
+    <p class="form-section-title">Page 1 — Identification du service et évaluation QVCT</p>
+
+    <div class="inline-fields">
+      <div><label for="fvService">Service</label><input id="fvService" placeholder="Ex. Éducation"></div>
+      <div><label for="fvPole">Pôle / direction</label><input id="fvPole" placeholder="Ex. Pôle Famille"></div>
+      <div><label for="fvDate">Date</label><input id="fvDate" type="date"></div>
+      <div><label for="fvResponsable">Responsable</label><input id="fvResponsable" placeholder="Nom ou fonction"></div>
+      <div><label for="fvAgents">Nombre d’agents</label><input id="fvAgents" type="number" min="1" placeholder="Ex. 45"></div>
+      <div><label for="fvRepondants">Nombre de répondants</label><input id="fvRepondants" type="number" min="0" placeholder="Ex. 32"></div>
+    </div>
+
+    <table class="fillable-table">
+      <thead><tr><th>Dimension</th><th>Note /10</th><th>Commentaire court</th></tr></thead>
+      <tbody>
+        <tr><td>Charge de travail maîtrisable</td><td><input id="fvCharge" type="number" min="0" max="10"></td><td><textarea id="fvCommentCharge" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Clarté des consignes</td><td><input id="fvConsignes" type="number" min="0" max="10"></td><td><textarea id="fvCommentConsignes" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Moyens disponibles</td><td><input id="fvMoyens" type="number" min="0" max="10"></td><td><textarea id="fvCommentMoyens" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Reconnaissance du travail</td><td><input id="fvReconnaissance" type="number" min="0" max="10"></td><td><textarea id="fvCommentReconnaissance" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Qualité du management</td><td><input id="fvManagement" type="number" min="0" max="10"></td><td><textarea id="fvCommentManagement" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Coopération dans l’équipe</td><td><input id="fvCooperation" type="number" min="0" max="10"></td><td><textarea id="fvCommentCooperation" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Tensions maîtrisées</td><td><input id="fvTensions" type="number" min="0" max="10"></td><td><textarea id="fvCommentTensions" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Conditions matérielles</td><td><input id="fvMateriel" type="number" min="0" max="10"></td><td><textarea id="fvCommentMateriel" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Formation suffisante</td><td><input id="fvFormation" type="number" min="0" max="10"></td><td><textarea id="fvCommentFormation" placeholder="Observation courte"></textarea></td></tr>
+        <tr><td>Autonomie</td><td><input id="fvAutonomie" type="number" min="0" max="10"></td><td><textarea id="fvCommentAutonomie" placeholder="Observation courte"></textarea></td></tr>
+      </tbody>
+    </table>
+
+    </div>
+
+    <div class="print-page">
+    <p class="form-section-title">Page 2 — Priorités, commentaires et synthèse</p>
+    <p><strong>Trois difficultés prioritaires :</strong></p>
+    <div class="priority-list">
+      <div class="priority-line"><strong>1.</strong><input id="fvPriorite1" placeholder="Difficulté prioritaire"></div>
+      <div class="priority-line"><strong>2.</strong><input id="fvPriorite2" placeholder="Difficulté prioritaire"></div>
+      <div class="priority-line"><strong>3.</strong><input id="fvPriorite3" placeholder="Difficulté prioritaire"></div>
+    </div>
+
+    <div id="formulaireViergeResult" class="result">Aucun score calculé.</div>
+    </div>
+  </div>
+</section>
+
+<section id="tableauDirection" class="panel">
+  <h2>Tableau de bord direction</h2>
+
+  <p class="lead">
+    Ce tableau permet une lecture synthétique pour la direction générale, la DRH, un directeur de pôle
+    ou un chef de service. Il agrège les principaux indicateurs de pilotage.
+  </p>
+
+  <div class="form-grid">
+    <div><label>Effectif total collectivité</label><input type="number" id="dashAgents" placeholder="Ex. 500"></div>
+    <div><label>Nombre de services analysés</label><input type="number" id="dashServices" placeholder="Ex. 8"></div>
+    <div><label>Services en alerte prioritaire</label><input type="number" id="dashAlertes" placeholder="Ex. 2"></div>
+    <div><label>Services en vigilance renforcée/simple</label><input type="number" id="dashVigilance" placeholder="Ex. 4"></div>
+    <div><label>Participation moyenne questionnaire (%)</label><input type="number" id="dashParticipation" placeholder="Ex. 71"></div>
+    <div><label>Actions clôturées</label><input type="number" id="dashActionsCloturees" placeholder="Ex. 15"></div>
+    <div><label>Actions totales</label><input type="number" id="dashActionsTotales" placeholder="Ex. 20"></div>
+    <div><label>Absentéisme global (%)</label><input type="number" id="dashAbs" step="0.1" placeholder="Ex. 6.4"></div>
+    <div><label>Score QVCT moyen /100</label><input type="number" id="dashScoreMoyen" min="0" max="100" placeholder="Ex. 68"></div>
+    <div><label>Services ayant un référent QVCT</label><input type="number" id="dashReferents" placeholder="Ex. 6"></div>
+  </div>
+
+  <button class="btn" onclick="calculerDashboard()">Actualiser le tableau de bord</button>
+  <button class="btn secondary" onclick="genererTableDirection()">Générer le tableau direction</button>
+  <button class="btn ghost" onclick="printSection('tableauDirection')">Imprimer le tableau direction</button>
+
+  <div id="dashboardResult" class="result">Aucun tableau généré.</div>
+
+  <div id="tableDirectionResult" class="result">
+    <h3>Tableau direction — modèle de lecture</h3>
+    <table>
+      <tr>
+        <th>Indicateur</th>
+        <th>Valeur</th>
+        <th>Lecture direction</th>
+        <th>Décision possible</th>
+      </tr>
+      <tr>
+        <td>Absentéisme global</td>
+        <td>À renseigner</td>
+        <td>Mesure la présence au travail sur le périmètre retenu.</td>
+        <td>Analyser par service, période, métier et motif.</td>
+      </tr>
+      <tr>
+        <td>Score QVCT moyen</td>
+        <td>À renseigner</td>
+        <td>Indicateur interne de climat et conditions de travail.</td>
+        <td>Identifier les services sous le seuil de vigilance.</td>
+      </tr>
+      <tr>
+        <td>Services en alerte</td>
+        <td>À renseigner</td>
+        <td>Services nécessitant une intervention prioritaire.</td>
+        <td>Arbitrage direction / RH / prévention.</td>
+      </tr>
+      <tr>
+        <td>Actions clôturées</td>
+        <td>À renseigner</td>
+        <td>Mesure la capacité de suivi et d’exécution.</td>
+        <td>Relancer les actions bloquées.</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section id="diagramme" class="panel">
+  <h2>Diagramme de vigilance par service</h2>
+  <div class="bar-wrap" id="diagrammeServices"></div>
+  <button class="btn ghost" onclick="viderDiagramme()">Vider le diagramme</button>
+</section>
+
+<section id="cartographie" class="panel">
+  <h2>Cartographie des risques organisationnels</h2>
+  <button class="btn" onclick="genererCartographie()">Générer à partir du questionnaire</button>
+  <div id="cartographieResult" class="result">Aucune cartographie générée.</div>
+</section>
+
+<section id="planAuto" class="panel">
+  <h2>Plan d’action automatique</h2>
+  <button class="btn" onclick="genererPlanAutoDepuisQuestionnaire()">Générer le plan</button>
+  <div id="planAutoResult" class="result">Aucun plan généré.</div>
+</section>
+
+<section id="roi" class="panel">
+  <h2>Simulation ROI RH — absentéisme évité</h2>
+  <p class="lead">Simulation vérifiable : hypothèses affichées, calcul détaillé et prudence méthodologique.</p>
+  <div class="form-grid">
+    <div><label>Effectif concerné</label><input type="number" id="roiAgents" placeholder="Ex. 500"></div>
+    <div><label>Absentéisme avant (%)</label><input type="number" id="roiAvant" step="0.1" placeholder="Ex. 8"></div>
+    <div><label>Absentéisme après objectif (%)</label><input type="number" id="roiApres" step="0.1" placeholder="Ex. 6"></div>
+    <div><label>Base annuelle de jours travaillés</label><input type="number" id="roiBase" placeholder="Ex. 228"></div>
+    <div><label>Coût moyen estimé par jour d’absence (€)</label><input type="number" id="roiCoutJour" placeholder="Ex. 150"></div>
+    <div><label>Coût annuel du dispositif (€)</label><input type="number" id="roiCoutDispositif" placeholder="Ex. 25000"></div>
+  </div>
+  <button class="btn" onclick="calculerROI()">Calculer le ROI</button>
+  <div id="roiResult" class="result">Aucun ROI calculé.</div>
+  <div class="notice">
+    <strong>Lecture du ROI :</strong> le résultat est une simulation d’aide à la décision.
+    Les montants affichés dépendent des hypothèses renseignées : effectif, taux d’absentéisme initial,
+    objectif de réduction, base annuelle de jours travaillés, coût moyen d’une journée d’absence
+    et coût estimé du dispositif. Ils ne constituent pas une donnée comptable officielle.
+  </div>
+</section>
+
+<section id="gouvernance" class="panel">
+  <h2>Gouvernance stratégique QVCT</h2>
+  <p class="lead">
+    Cette rubrique présente une organisation de pilotage synthétique : responsabilités, comité de pilotage,
+    cycle annuel, indicateurs et amélioration continue. Les blocs sont regroupés en accordéons pour une lecture plus courte.
+  </p>
+
+  <div class="notice">
+    <strong>Logique direction :</strong> les données collectées alimentent l’analyse, les arbitrages, le suivi des plans d’action
+    et les documents de pilotage RH : RSU, DUERP, plan de prévention, plan de formation, lignes directrices de gestion et dialogue social.
+  </div>
+
+  <div class="accordion governance-accordion">
+
+    <details open>
+      <summary>1. Vue d’ensemble — chaîne de gouvernance</summary>
+      <div class="accordion-body">
+        <div class="flow">
+          <div class="flow-step">Agents / équipes : expression du travail réel, réponses aux enquêtes, propositions d'amélioration</div><div class="arrow">↓</div>
+          <div class="flow-step">Managers / chefs de service : diagnostic de proximité, analyse des irritants, premières actions</div><div class="arrow">↓</div>
+          <div class="flow-step">Directeurs de pôle : priorisation, cohérence entre services, arbitrage opérationnel</div><div class="arrow">↓</div>
+          <div class="flow-step">DRH / prévention : méthode, consolidation des indicateurs, accompagnement, traçabilité</div><div class="arrow">↓</div>
+          <div class="flow-step">F3SCT / médecine du travail / acteurs prévention : expertise, prévention des risques, avis et préconisations</div><div class="arrow">↓</div>
+          <div class="flow-step">DGS / direction générale : arbitrage stratégique, moyens, validation du plan d'action annuel</div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>2. Comité de pilotage QVCT</summary>
+      <div class="accordion-body">
+        <div class="grid-2">
+          <div class="card good">
+            <h3>Composition proposée</h3>
+            <ul>
+              <li>Direction générale des services</li>
+              <li>Direction des ressources humaines</li>
+              <li>Directeurs de pôle concernés</li>
+              <li>Préventeur / assistant de prévention</li>
+              <li>Médecine du travail ou service de prévention</li>
+              <li>Représentants du personnel / F3SCT selon le périmètre</li>
+              <li>Managers concernés par les plans d'action</li>
+            </ul>
+          </div>
+          <div class="card soft">
+            <h3>Missions du COPIL</h3>
+            <ul>
+              <li>Valider le périmètre d'analyse et la méthode</li>
+              <li>Examiner les indicateurs QVCT, absentéisme et participation</li>
+              <li>Prioriser les risques et les services en vigilance</li>
+              <li>Arbitrer les moyens humains, organisationnels ou budgétaires</li>
+              <li>Suivre l'avancement des plans d'action</li>
+              <li>Préparer la restitution aux services et au dialogue social</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>3. Cycle annuel de pilotage</summary>
+      <div class="accordion-body">
+        <div class="flow">
+          <div class="flow-step">Janvier — cadrage annuel : objectifs, périmètre, calendrier, indicateurs</div><div class="arrow">↓</div>
+          <div class="flow-step">Mars — questionnaire QVCT et remontée des données par service</div><div class="arrow">↓</div>
+          <div class="flow-step">Avril — analyse RH : scores, absentéisme, signaux faibles, cartographie des risques</div><div class="arrow">↓</div>
+          <div class="flow-step">Mai — COPIL QVCT : priorisation, arbitrages, validation des actions</div><div class="arrow">↓</div>
+          <div class="flow-step">Juin à septembre — mise en œuvre des plans d'action et accompagnement des managers</div><div class="arrow">↓</div>
+          <div class="flow-step">Octobre — point d'étape : indicateurs, ajustements, actions correctives</div><div class="arrow">↓</div>
+          <div class="flow-step">Décembre — évaluation, bilan, contribution RSU / DUERP / plan de prévention / plan de formation</div>
+        </div>
+      </div>
+    </details>
+
+    <details open>
+      <summary>4. Répartition interactive des responsabilités</summary>
+      <div class="accordion-body">
+        <div class="notice">
+          <strong>Objectif :</strong> adapter la gouvernance QVCT à l'organisation réelle d'une collectivité.
+          Chaque cellule peut rester vide ou être renseignée avec une liste déroulante courte : <strong>R</strong>, <strong>A</strong>, <strong>C</strong> ou <strong>I</strong>.
+        </div>
+
+        <div style="overflow-x:auto">
+          <table class="raci-table" id="raciTable">
+            <thead>
+              <tr><th>Action</th><th>DGS</th><th>DRH</th><th>Directeur de pôle</th><th>Manager</th><th>Prévention / F3SCT</th><th>Agents</th></tr>
+            </thead>
+            <tbody>
+              <tr data-action="Lancer la démarche annuelle"><td>Lancer la démarche annuelle</td><td data-default="A"></td><td data-default="R"></td><td data-default="C"></td><td data-default="I"></td><td data-default="C"></td><td data-default="I"></td></tr>
+              <tr data-action="Collecter les données service"><td>Collecter les données service</td><td data-default="I"></td><td data-default="A"></td><td data-default="C"></td><td data-default="R"></td><td data-default="C"></td><td data-default="R"></td></tr>
+              <tr data-action="Analyser les résultats"><td>Analyser les résultats</td><td data-default="I"></td><td data-default="A"></td><td data-default="C"></td><td data-default="R"></td><td data-default="C"></td><td data-default="I"></td></tr>
+              <tr data-action="Définir le plan d'action"><td>Définir le plan d'action</td><td data-default="A"></td><td data-default="R"></td><td data-default="R"></td><td data-default="R"></td><td data-default="C"></td><td data-default="C"></td></tr>
+              <tr data-action="Suivre les actions"><td>Suivre les actions</td><td data-default="I"></td><td data-default="A"></td><td data-default="R"></td><td data-default="R"></td><td data-default="C"></td><td data-default="I"></td></tr>
+              <tr data-action="Évaluer et rendre compte"><td>Évaluer et rendre compte</td><td data-default="A"></td><td data-default="R"></td><td data-default="C"></td><td data-default="C"></td><td data-default="C"></td><td data-default="I"></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button class="btn" onclick="analyserGouvernanceRaci()">Analyser la gouvernance</button>
+        <button class="btn ghost" onclick="viderGouvernanceRaci()">Vider la matrice</button>
+        <div id="raciResult" class="result">Aucune analyse lancée.</div>
+
+        <div class="notice">
+          <strong>Comment lire cette matrice :</strong> elle ne représente pas une hiérarchie. Elle précise, pour chaque étape,
+          qui réalise l’action, qui arbitre, qui est consulté et qui reçoit l’information.
+        </div>
+
+        <div class="raci-help">
+          <div class="card good"><h3>R</h3><p><strong>Responsable :</strong> réalise concrètement l'action.</p></div>
+          <div class="card soft"><h3>A</h3><p><strong>Autorité :</strong> valide, arbitre et engage la décision.</p></div>
+          <div class="card warn"><h3>C</h3><p><strong>Consulté :</strong> apporte une expertise avant décision.</p></div>
+          <div class="card white"><h3>I</h3><p><strong>Informé :</strong> reçoit l'information ou la restitution.</p></div>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>5. Indicateurs de gouvernance</summary>
+      <div class="accordion-body">
+        <table>
+          <thead>
+            <tr><th>Indicateur</th><th>Fréquence</th><th>Responsable</th><th>Usage de pilotage</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Taux de participation</td><td>Trimestrielle</td><td>DRH / managers</td><td>Fiabilité de l'analyse et mobilisation des équipes</td></tr>
+            <tr><td>Score QVCT interne</td><td>Trimestrielle</td><td>DRH</td><td>Repérage des services en vigilance</td></tr>
+            <tr><td>Taux d'absentéisme</td><td>Mensuelle</td><td>DRH</td><td>Suivi des effets organisationnels et prévention</td></tr>
+            <tr><td>Accidents de service / travail</td><td>Mensuelle</td><td>Prévention</td><td>Alimentation du plan de prévention et du DUERP</td></tr>
+            <tr><td>Actions réalisées / prévues</td><td>Mensuelle</td><td>Directeurs / managers</td><td>Suivi de l'exécution</td></tr>
+            <tr><td>Besoins de formation détectés</td><td>Semestrielle</td><td>DRH</td><td>Préparation du plan de formation</td></tr>
+            <tr><td>Points de dialogue social</td><td>Selon calendrier</td><td>DRH / direction</td><td>Préparation F3SCT, CST et instances internes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>6. Amélioration continue</summary>
+      <div class="accordion-body">
+        <div class="grid">
+          <div class="card good"><h3>PLAN</h3><p>Définir les objectifs, le périmètre et les indicateurs.</p></div>
+          <div class="card soft"><h3>DO</h3><p>Collecter les données, accompagner les services, déployer les actions.</p></div>
+          <div class="card warn"><h3>CHECK</h3><p>Comparer les résultats, suivre les écarts et identifier les signaux faibles.</p></div>
+          <div class="card white"><h3>ACT</h3><p>Ajuster les actions, arbitrer les moyens et préparer le cycle suivant.</p></div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="exemples" class="panel">
+  <h2>Exemples réels, articles et outils existants</h2>
+  <div class="grid-2">
+    <div class="card good"><h3>Conseil départemental de l’Essonne</h3><p>Exemple de plan Santé Sécurité et QVT.</p><a class="btn" target="_blank" href="https://www.lagazettedescommunes.com/941349/qvt-au-travail-lessonne-ameliore-le-bien-etre-de-ses-agents/">Lire l’article</a></div>
+    <div class="card soft"><h3>DGAFP / ANACT — Guide QVT</h3><p>Guide institutionnel pour conduire une démarche QVT.</p><a class="btn" target="_blank" href="https://www.fonction-publique.gouv.fr/toutes-les-publications/guide-de-la-qualite-de-vie-au-travail-outils-et-methodes-pour-conduire-une-demarche-qvt">Voir le guide</a></div>
+    <div class="card warn"><h3>DGAFP — Référentiel QVCT</h3><p>Référentiel pour élaborer des chartes QVCT dans la fonction publique.</p><a class="btn" target="_blank" href="https://www.fonction-publique.gouv.fr/toutes-les-publications/referentiel-pour-lelaboration-de-chartes-sur-la-qualite-de-vie-et-des-conditions-de-travail-qvct-dans-la-fonction-publique">Voir le référentiel</a></div>
+    <div class="card white"><h3>Relyens — Panorama territorial</h3><p>Panorama santé et QVT des agents territoriaux.</p><a class="btn" target="_blank" href="https://www.relyens.eu/fr/newsroom/actualites/panorama-2025-qualite-de-vie-au-travail-sante-des-agents-territoriaux">Voir le panorama</a></div>
+    <div class="card good"><h3>CNFPT / HoRHizons</h3><p>Baromètre des tendances RH territoriales.</p><a class="btn" target="_blank" href="https://www.cnfpt.fr/sinformer/espace-presse/communiques-presse/barometre-horhizons-2025-grandes-tendances-lemploi-public-local-fonction-publique-territoriale-a-lheure-defis/national">Voir HoRHizons</a></div>
+    <div class="card soft"><h3>PRST Normandie</h3><p>Autodiagnostic QVCT.</p><a class="btn" target="_blank" href="https://www.prst-normandie.fr/outil/autodiagnostic-qvct/">Voir l’outil</a></div>
+  </div>
+</section>
+
+<section id="sources" class="panel">
+  <h2>Sources et méthode</h2>
+  <ul>
+    <li><a class="source-link" href="https://www.collectivites-locales.gouv.fr/fonction-publique-territoriale/le-rapport-social-unique-rsu" target="_blank">Collectivités locales — Rapport Social Unique</a></li>
+    <li><a class="source-link" href="https://www.fonction-publique.gouv.fr/etudes-statistiques-et-publications/la-base-de-donnees-sociales-bds" target="_blank">Fonction publique — Base de Données Sociales</a></li>
+    <li><a class="source-link" href="https://www.service-public.fr/particuliers/vosdroits/N19806" target="_blank">Service-Public — Fonction publique</a></li>
+    <li><a class="source-link" href="https://www.anact.fr/themes/absenteisme" target="_blank">ANACT — Prévenir et analyser l’absentéisme</a></li>
+    <li><a class="source-link" href="https://www.fonction-publique.gouv.fr/etre-agent-public/mon-quotidien-au-travail/qualite-de-vie-au-travail/la-qualite-de-vie-et-des-conditions-de-travail" target="_blank">Fonction publique — QVCT</a></li>
+    <li><a class="source-link" href="https://www.fonction-publique.gouv.fr/toutes-les-publications/guide-de-la-qualite-de-vie-au-travail-outils-et-methodes-pour-conduire-une-demarche-qvt" target="_blank">DGAFP / ANACT — Guide QVT</a></li>
+    <li><a class="source-link" href="https://www.anact.fr/la-qvct-de-quoi-parle-t" target="_blank">ANACT — QVCT</a></li>
+  </ul>
+</section>
+
+</main>
+
+<footer>QVCT 360° — outil de pilotage RH, QVCT, absentéisme, ROI et synthèse imprimable</footer>
+
+<script>
+let services = [];
+
+function n(id){ return Number(document.getElementById(id).value || 0); }
+function v(id){ return document.getElementById(id).value || ""; }
+
+function openPanel(id, btn){
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active','print-target'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  if(btn){btn.classList.add('active');}
+}
+
+function printSection(id){
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('print-target'));
+  document.getElementById(id).classList.add('print-target');
+  window.print();
+}
+
+function niveauVigilance(score){
+  if(score >= 75) return {niveau:"Maîtrisé", classe:"good", action:"Suivi trimestriel normal."};
+  if(score >= 60) return {niveau:"Vigilance simple", classe:"soft", action:"Ajustements ciblés à prévoir."};
+  if(score >= 45) return {niveau:"Vigilance renforcée", classe:"warn", action:"Plan d’action obligatoire sous 30 jours."};
+  return {niveau:"Alerte prioritaire", classe:"alert", action:"Intervention direction / RH / prévention."};
+}
+
+function getScoreService(){
+  return ["charge","consignes","moyens","reconnaissance","management","cooperation","tensions","materiel","formation","autonomie"]
+    .reduce((total,id)=> total + n(id), 0);
+}
+
+function calculerService(){
+  const score = getScoreService();
+  const agents = n("agentsService");
+  const repondants = n("repondantsService");
+  const participation = agents > 0 ? Math.round((repondants / agents) * 100) : 0;
+  const analyse = niveauVigilance(score);
+  resultatService.className = "result " + analyse.classe;
+  resultatService.innerHTML = `
+    <h3>Analyse du service : ${v("service") || "non renseigné"}</h3>
+    <p><strong>Pôle :</strong> ${v("pole") || "non renseigné"}</p>
+    <p><strong>Chef de service :</strong> ${v("chef") || "non renseigné"}</p>
+    <div class="kpi">${score}/100</div>
+    <p><strong>Niveau :</strong> ${analyse.niveau}</p>
+    <p><strong>Taux de participation :</strong> ${participation}%</p>
+    <p><strong>Décision recommandée :</strong> ${analyse.action}</p>
+    <p><strong>Méthode :</strong> addition de 10 dimensions notées sur 10 = score sur 100.</p>`;
+}
+
+function ajouterAuDiagramme(){
+  const score = getScoreService();
+  services.push({nom:v("service") || "Service non renseigné", score:score, niveau:niveauVigilance(score).niveau});
+  afficherDiagramme();
+  openPanel("diagramme");
+}
+
+function couleurScore(score){
+  if(score >= 75) return "linear-gradient(90deg,#5e8b7e,#80b9a7)";
+  if(score >= 60) return "linear-gradient(90deg,#f6c177,#5e8b7e)";
+  if(score >= 45) return "linear-gradient(90deg,#c2414b,#f6c177)";
+  return "linear-gradient(90deg,#991b1b,#c2414b)";
+}
+
+function afficherDiagramme(){
+  if(services.length === 0){diagrammeServices.innerHTML = "<p class='small'>Aucun service ajouté.</p>";return;}
+  diagrammeServices.innerHTML = services.map(s => `
+    <div class="bar-row">
+      <div><strong>${s.nom}</strong><br><span class="small">${s.niveau}</span></div>
+      <div class="bar-bg"><div class="bar" style="width:${s.score}%;background:${couleurScore(s.score)}"></div></div>
+      <div><strong>${s.score}/100</strong></div>
+    </div>`).join("");
+}
+
+function calculerAbsenteisme(){
+  const agents = n("agentsAbs"), jours = n("joursAbs"), base = n("joursBase");
+  const joursTheo = agents * base;
+  const taux = joursTheo > 0 ? ((jours / joursTheo) * 100).toFixed(2) : "0.00";
+  let niveau = "", action = "";
+  if(Number(taux) < 5){niveau = "Situation maîtrisée"; action = "Maintenir le suivi trimestriel.";}
+  else if(Number(taux) < 8){niveau = "Vigilance"; action = "Analyser périodes, postes, motifs et services.";}
+  else{niveau = "Vigilance renforcée"; action = "Engager une analyse RH/prévention et un plan d’action.";}
+  resultatAbsenteisme.innerHTML = `
+    <h3>Absentéisme — ${v("serviceAbs") || "service non renseigné"}</h3>
+    <div class="kpi">${taux}%</div>
+    <p><strong>Formule :</strong> ${jours} jours d’absence ÷ (${agents} agents × ${base} jours théoriques) × 100</p>
+    <p><strong>Jours théoriquement travaillés :</strong> ${joursTheo}</p>
+    <p><strong>Périmètre retenu :</strong> ${v("perimetreAbs") || "à préciser"}</p>
+    <p><strong>Niveau :</strong> ${niveau}</p>
+    <p><strong>Action recommandée :</strong> ${action}</p>`;
+}
+
+function calculerDashboard(){
+  const servicesTotal = n("dashServices"), alertes = n("dashAlertes"), cloturees = n("dashActionsCloturees"), totalActions = n("dashActionsTotales");
+  const tauxAlerte = servicesTotal > 0 ? Math.round((alertes/servicesTotal)*100) : 0;
+  const tauxAction = totalActions > 0 ? Math.round((cloturees/totalActions)*100) : 0;
+  dashboardResult.innerHTML = `
+    <div class="grid">
+      <div class="card good"><div class="kpi">${n("dashAgents")}</div><p><strong>Agents concernés</strong></p></div>
+      <div class="card soft"><div class="kpi">${n("dashAbs")}%</div><p><strong>Absentéisme global</strong></p></div>
+      <div class="card warn"><div class="kpi">${alertes}</div><p><strong>Services en alerte</strong></p><p class="small">${tauxAlerte}% des services analysés</p></div>
+      <div class="card white"><div class="kpi">${n("dashVigilance")}</div><p><strong>Services en vigilance</strong></p></div>
+      <div class="card good"><div class="kpi">${n("dashParticipation")}%</div><p><strong>Participation</strong></p></div>
+      <div class="card soft"><div class="kpi">${tauxAction}%</div><p><strong>Actions clôturées</strong></p></div>
+    </div>`;
+}
+
+function risqueLigne(label, valeur){
+  let dot = "green", niveau = "Maîtrisé", action = "Suivi normal.";
+  if(valeur < 6){dot = "orange"; niveau = "À surveiller"; action = "Action corrective ciblée.";}
+  if(valeur < 5){dot = "red"; niveau = "Élevé"; action = "Intervention prioritaire.";}
+  return `<tr><td><span class="risk-dot ${dot}"></span>${label}</td><td>${valeur}/10</td><td>${niveau}</td><td>${action}</td></tr>`;
+}
+
+function genererCartographie(){
+  cartographieResult.innerHTML = `
+    <h3>Cartographie — ${v("service") || "service non renseigné"}</h3>
+    <table><tr><th>Risque</th><th>Score</th><th>Niveau</th><th>Décision</th></tr>
+    ${risqueLigne("Charge de travail", n("charge"))}${risqueLigne("Communication / consignes", n("consignes"))}
+    ${risqueLigne("Moyens", n("moyens"))}${risqueLigne("Reconnaissance", n("reconnaissance"))}
+    ${risqueLigne("Management", n("management"))}${risqueLigne("Coopération", n("cooperation"))}
+    ${risqueLigne("Tensions maîtrisées", n("tensions"))}${risqueLigne("Conditions matérielles", n("materiel"))}
+    ${risqueLigne("Formation", n("formation"))}${risqueLigne("Autonomie", n("autonomie"))}</table>`;
+}
+
+function actionPour(label, valeur){
+  if(valeur >= 6) return "";
+  const actions = {
+    "Charge de travail":"Organiser une réunion d’arbitrage des priorités.",
+    "Clarté des consignes":"Formaliser les procédures et circuits de validation.",
+    "Moyens disponibles":"Évaluer outils, effectifs, délais et irritants matériels.",
+    "Reconnaissance":"Instaurer un point mensuel de valorisation.",
+    "Management":"Prévoir accompagnement managérial ou formation ciblée.",
+    "Coopération":"Mettre en place un temps d’échange collectif.",
+    "Tensions maîtrisées":"Organiser un espace de discussion ou médiation encadrée.",
+    "Conditions matérielles":"Recenser et prioriser les corrections matérielles.",
+    "Formation":"Construire un mini-plan de montée en compétences.",
+    "Autonomie":"Clarifier marges de manœuvre et responsabilités."
+  };
+  return `<li><strong>${label} (${valeur}/10)</strong> : ${actions[label]}</li>`;
+}
+
+function genererPlanAutoDepuisQuestionnaire(){
+  const items = [["Charge de travail",n("charge")],["Clarté des consignes",n("consignes")],["Moyens disponibles",n("moyens")],["Reconnaissance",n("reconnaissance")],["Management",n("management")],["Coopération",n("cooperation")],["Tensions maîtrisées",n("tensions")],["Conditions matérielles",n("materiel")],["Formation",n("formation")],["Autonomie",n("autonomie")]];
+  const faibles = items.filter(i => i[1] < 6).sort((a,b)=>a[1]-b[1]);
+  if(faibles.length === 0){planAutoResult.innerHTML = "<p>Aucune fragilité majeure détectée ou questionnaire non rempli.</p>";return;}
+  planAutoResult.innerHTML = `<h3>Plan d’action — ${v("service") || "service non renseigné"}</h3><ol>${faibles.map(i => actionPour(i[0], i[1])).join("")}</ol>`;
+}
+
+function calculerROI(){
+  const agents = n("roiAgents"), avant = n("roiAvant"), apres = n("roiApres"), base = n("roiBase"), coutJour = n("roiCoutJour"), coutDispositif = n("roiCoutDispositif");
+  const joursAvant = agents * base * (avant/100);
+  const joursApres = agents * base * (apres/100);
+  const joursEvites = Math.max(0, joursAvant - joursApres);
+  const gainBrut = joursEvites * coutJour;
+  const gainNet = gainBrut - coutDispositif;
+  const roi = coutDispositif > 0 ? ((gainNet / coutDispositif) * 100).toFixed(0) : "0";
+  roiResult.innerHTML = `
+    <div class="grid">
+      <div class="card soft"><div class="kpi">${Math.round(joursEvites)}</div><p><strong>Jours évités</strong></p></div>
+      <div class="card good"><div class="kpi">${Math.round(gainBrut).toLocaleString('fr-FR')} €</div><p><strong>Gain brut estimé</strong></p></div>
+      <div class="card warn"><div class="kpi">${Math.round(gainNet).toLocaleString('fr-FR')} €</div><p><strong>Gain net estimé</strong></p></div>
+      <div class="card white"><div class="kpi">${roi}%</div><p><strong>ROI estimatif</strong></p></div>
+    </div>
+    <p><strong>Calcul :</strong> (${avant}% - ${apres}%) × ${agents} agents × ${base} jours × ${coutJour} € - ${coutDispositif} €.</p>`;
+}
+
+function genererSynthese(){
+  const score = getScoreService();
+  const analyse = niveauVigilance(score);
+  syntheseResult.innerHTML = `
+    <h3>Synthèse QVCT — ${v("service") || "service non renseigné"}</h3>
+    <p><strong>Pôle :</strong> ${v("pole") || "non renseigné"} — <strong>Chef de service :</strong> ${v("chef") || "non renseigné"}</p>
+    <p><strong>Effectif :</strong> ${n("agentsService")} agents — <strong>Répondants :</strong> ${n("repondantsService")}</p>
+    <div class="kpi">${score}/100</div>
+    <p><strong>Niveau :</strong> ${analyse.niveau}</p>
+    <p><strong>Décision recommandée :</strong> ${analyse.action}</p>
+    <table><tr><th>Dimension</th><th>Score</th></tr>
+    <tr><td>Charge</td><td>${n("charge")}/10</td></tr><tr><td>Consignes</td><td>${n("consignes")}/10</td></tr>
+    <tr><td>Moyens</td><td>${n("moyens")}/10</td></tr><tr><td>Reconnaissance</td><td>${n("reconnaissance")}/10</td></tr>
+    <tr><td>Management</td><td>${n("management")}/10</td></tr><tr><td>Coopération</td><td>${n("cooperation")}/10</td></tr>
+    <tr><td>Tensions maîtrisées</td><td>${n("tensions")}/10</td></tr><tr><td>Matériel</td><td>${n("materiel")}/10</td></tr>
+    <tr><td>Formation</td><td>${n("formation")}/10</td></tr><tr><td>Autonomie</td><td>${n("autonomie")}/10</td></tr></table>`;
+}
+
+function calculerFormulaireService(){
+  const vals = ["fCharge","fConsignes","fMoyens","fReconnaissance","fManagement","fCooperation","fTensions","fMateriel","fFormation","fAutonomie"]
+    .map(id => Number(document.getElementById(id).value || 0));
+  const score = vals.reduce((a,b)=>a+b,0);
+  const agents = Number(document.getElementById("fAgents").value || 0);
+  const repondants = Number(document.getElementById("fRepondants").value || 0);
+  const absences = Number(document.getElementById("fAbsences").value || 0);
+  const base = Number(document.getElementById("fBase").value || 0);
+  const participation = agents > 0 ? Math.round((repondants/agents)*100) : 0;
+  const abs = (agents > 0 && base > 0) ? ((absences/(agents*base))*100).toFixed(2) : "0.00";
+  const niveau = niveauVigilance(score);
+
+  formulaireResult.innerHTML = `
+    <h3>Résultat du formulaire — ${document.getElementById("fService").value || "service non renseigné"}</h3>
+    <div class="grid">
+      <div class="card soft"><div class="kpi">${score}/100</div><p><strong>Score QVCT interne</strong></p></div>
+      <div class="card good"><div class="kpi">${participation}%</div><p><strong>Participation</strong></p></div>
+      <div class="card warn"><div class="kpi">${abs}%</div><p><strong>Absentéisme</strong></p></div>
+      <div class="card white"><div class="kpi">${niveau.niveau}</div><p><strong>Niveau de vigilance</strong></p></div>
+    </div>
+    <p><strong>Lecture :</strong> ${niveau.action}</p>
+  `;
+}
+
+function transfererFormulaire(){
+  pole.value = document.getElementById("fPole").value;
+  service.value = document.getElementById("fService").value;
+  chef.value = document.getElementById("fResponsable").value;
+  agentsService.value = document.getElementById("fAgents").value;
+  repondantsService.value = document.getElementById("fRepondants").value;
+  charge.value = document.getElementById("fCharge").value;
+  consignes.value = document.getElementById("fConsignes").value;
+  moyens.value = document.getElementById("fMoyens").value;
+  reconnaissance.value = document.getElementById("fReconnaissance").value;
+  management.value = document.getElementById("fManagement").value;
+  cooperation.value = document.getElementById("fCooperation").value;
+  tensions.value = document.getElementById("fTensions").value;
+  materiel.value = document.getElementById("fMateriel").value;
+  formation.value = document.getElementById("fFormation").value;
+  autonomie.value = document.getElementById("fAutonomie").value;
+
+  serviceAbs.value = document.getElementById("fService").value;
+  agentsAbs.value = document.getElementById("fAgents").value;
+  joursAbs.value = document.getElementById("fAbsences").value;
+  joursBase.value = document.getElementById("fBase").value;
+
+  calculerService();
+  calculerAbsenteisme();
+  openPanel("questionnaire");
+}
+
+function genererTableDirection(){
+  const servicesTotal = n("dashServices");
+  const alertes = n("dashAlertes");
+  const vigilance = n("dashVigilance");
+  const actionsCloturees = n("dashActionsCloturees");
+  const actionsTotales = n("dashActionsTotales");
+  const referents = n("dashReferents");
+  const agents = n("dashAgents");
+  const tauxAlertes = servicesTotal > 0 ? Math.round((alertes/servicesTotal)*100) : 0;
+  const tauxActions = actionsTotales > 0 ? Math.round((actionsCloturees/actionsTotales)*100) : 0;
+  const tauxReferents = servicesTotal > 0 ? Math.round((referents/servicesTotal)*100) : 0;
+
+  let lectureAbs = n("dashAbs") >= 8 ? "Vigilance renforcée" : n("dashAbs") >= 5 ? "Vigilance simple" : "Situation suivie";
+  let lectureScore = n("dashScoreMoyen") < 45 ? "Alerte prioritaire" : n("dashScoreMoyen") < 60 ? "Vigilance renforcée" : n("dashScoreMoyen") < 75 ? "Vigilance simple" : "Maîtrisé";
+
+  tableDirectionResult.innerHTML = `
+    <h3>Tableau direction — synthèse consolidée</h3>
+    <table>
+      <tr>
+        <th>Indicateur</th>
+        <th>Valeur</th>
+        <th>Lecture direction</th>
+        <th>Décision possible</th>
+      </tr>
+      <tr>
+        <td>Effectif total concerné</td>
+        <td>${agents} agents</td>
+        <td>Périmètre de la démarche QVCT.</td>
+        <td>Définir le niveau d’analyse : service, pôle ou collectivité.</td>
+      </tr>
+      <tr>
+        <td>Absentéisme global</td>
+        <td>${n("dashAbs")}%</td>
+        <td>${lectureAbs}</td>
+        <td>Analyser par service, période, métier et motif.</td>
+      </tr>
+      <tr>
+        <td>Score QVCT moyen</td>
+        <td>${n("dashScoreMoyen")}/100</td>
+        <td>${lectureScore}</td>
+        <td>Identifier les dimensions les plus fragiles.</td>
+      </tr>
+      <tr>
+        <td>Services en alerte prioritaire</td>
+        <td>${alertes} service(s), soit ${tauxAlertes}%</td>
+        <td>Services nécessitant un arbitrage rapide.</td>
+        <td>Plan d’action sous 30 jours.</td>
+      </tr>
+      <tr>
+        <td>Services en vigilance</td>
+        <td>${vigilance} service(s)</td>
+        <td>Fragilités à suivre au trimestre suivant.</td>
+        <td>Actions ciblées par chef de service.</td>
+      </tr>
+      <tr>
+        <td>Participation questionnaire</td>
+        <td>${n("dashParticipation")}%</td>
+        <td>Mesure la représentativité des réponses.</td>
+        <td>Renforcer la communication si participation faible.</td>
+      </tr>
+      <tr>
+        <td>Actions clôturées</td>
+        <td>${actionsCloturees}/${actionsTotales}, soit ${tauxActions}%</td>
+        <td>Suivi de l’exécution du plan d’action.</td>
+        <td>Relancer les actions bloquées.</td>
+      </tr>
+      <tr>
+        <td>Référents QVCT identifiés</td>
+        <td>${referents}/${servicesTotal}, soit ${tauxReferents}%</td>
+        <td>Mesure le maillage de proximité.</td>
+        <td>Former ou désigner les référents manquants.</td>
+      </tr>
+    </table>
+  `;
+}
+
+function resetQuestionnaire(){
+  ["pole","service","chef","agentsService","repondantsService","charge","consignes","moyens","reconnaissance","management","cooperation","tensions","materiel","formation","autonomie"].forEach(id=>document.getElementById(id).value="");
+  resultatService.innerHTML = "Aucun calcul réalisé.";
+}
+
+function resetAll(){
+  document.querySelectorAll("input,select,textarea").forEach(el=>el.value="");
+  ["resultatService","resultatAbsenteisme","dashboardResult","cartographieResult","planAutoResult","roiResult","syntheseResult","formulaireResult"].forEach(id=>document.getElementById(id).innerHTML="Aucun calcul réalisé.");
+  services=[]; afficherDiagramme();
+  if(typeof initialiserGouvernanceRaci === "function") initialiserGouvernanceRaci();
+}
+
+function chargerDemo(){
+  pole.value="Pôle Famille / Éducation"; service.value="Éducation"; chef.value="Chef de service Éducation"; agentsService.value=45; repondantsService.value=32;
+  charge.value=5; consignes.value=6; moyens.value=5; reconnaissance.value=4; management.value=6; cooperation.value=7; tensions.value=5; materiel.value=6; formation.value=5; autonomie.value=6;
+  calculerService();
+}
+
+function chargerDemoAbs(){serviceAbs.value="Éducation";agentsAbs.value=45;joursAbs.value=620;joursBase.value=228;perimetreAbs.value="Maladie ordinaire + accident de service/travail";calculerAbsenteisme();}
+function chargerDemoDashboard(){dashAgents.value=500;dashServices.value=8;dashAlertes.value=2;dashVigilance.value=4;dashParticipation.value=71;dashActionsCloturees.value=15;dashActionsTotales.value=20;dashAbs.value=6.4;calculerDashboard();}
+function chargerDemoROI(){roiAgents.value=500;roiAvant.value=8;roiApres.value=6;roiBase.value=228;roiCoutJour.value=150;roiCoutDispositif.value=25000;calculerROI();}
+function chargerExempleDiagramme(){services=[{nom:"Éducation",score:58,niveau:"Vigilance renforcée"},{nom:"Accueil population",score:64,niveau:"Vigilance simple"},{nom:"Ressources humaines",score:72,niveau:"Vigilance simple"},{nom:"Services techniques",score:49,niveau:"Vigilance renforcée"},{nom:"Finances",score:81,niveau:"Maîtrisé"},{nom:"Petite enfance",score:43,niveau:"Alerte prioritaire"}];afficherDiagramme();}
+function viderDiagramme(){services=[];afficherDiagramme();}
+
+
+function creerSelectRaci(valeur){
+  const options = [
+    ["", "—"],
+    ["R", "R"],
+    ["A", "A"],
+    ["C", "C"],
+    ["I", "I"]
+  ];
+  return `<select class="raci-select" title="Choisir : R, A, C, I ou laisser vide" onchange="analyserGouvernanceRaci()">${options.map(([v,l])=>`<option value="${v}" ${v===valeur?'selected':''}>${l}</option>`).join("")}</select>`;
+}
+
+function initialiserGouvernanceRaci(){
+  document.querySelectorAll('#raciTable tbody tr').forEach(row => {
+    row.querySelectorAll('td[data-default]').forEach(cell => {
+      cell.innerHTML = creerSelectRaci('');
+    });
+  });
+  const result = document.getElementById('raciResult');
+  if(result){ result.className = 'result'; result.innerHTML = 'Aucune analyse lancée.'; }
+}
+
+function viderGouvernanceRaci(){
+  document.querySelectorAll('#raciTable select').forEach(select => { select.value = ''; });
+  const result = document.getElementById('raciResult');
+  if(result){ result.className = 'result'; result.innerHTML = 'Matrice vidée.'; }
+}
+
+function analyserGouvernanceRaci(){
+  const table = document.getElementById('raciTable');
+  const result = document.getElementById('raciResult');
+  if(!table || !result) return;
+
+  const acteurs = Array.from(table.querySelectorAll('thead th')).slice(1).map(th => th.textContent.trim());
+  const lignes = Array.from(table.querySelectorAll('tbody tr'));
+  const messages = [];
+  let alertes = 0;
+
+  lignes.forEach(row => {
+    const action = row.dataset.action || row.cells[0].textContent.trim();
+    const valeurs = Array.from(row.querySelectorAll('select')).map(s => s.value);
+    const responsables = valeurs.filter(v => v === 'R').length;
+    const autorites = valeurs.filter(v => v === 'A').length;
+    const renseignes = valeurs.filter(v => v !== '').length;
+    if(renseignes === 0){ alertes++; messages.push(`⚠ ${action} : ligne non renseignée.`); return; }
+    if(responsables === 0){ alertes++; messages.push(`⚠ ${action} : aucun responsable opérationnel n'est désigné.`); }
+    if(autorites === 0){ alertes++; messages.push(`⚠ ${action} : aucune autorité d'arbitrage n'est désignée.`); }
+    if(autorites > 1){ alertes++; messages.push(`⚠ ${action} : plusieurs autorités sont désignées ; l'arbitrage peut devenir flou.`); }
+  });
+
+  const indexDGS = acteurs.indexOf('DGS');
+  const indexDRH = acteurs.indexOf('DRH');
+  const indexManager = acteurs.indexOf('Manager');
+  const indexPrev = acteurs.indexOf('Prévention / F3SCT');
+  const parActeur = acteurs.map((nom, index) => ({
+    nom,
+    R: lignes.filter(row => row.querySelectorAll('select')[index]?.value === 'R').length,
+    A: lignes.filter(row => row.querySelectorAll('select')[index]?.value === 'A').length,
+    C: lignes.filter(row => row.querySelectorAll('select')[index]?.value === 'C').length,
+    I: lignes.filter(row => row.querySelectorAll('select')[index]?.value === 'I').length
+  }));
+
+  if(parActeur[indexDGS] && parActeur[indexDGS].A === 0){ alertes++; messages.push(`⚠ La DGS n'a aucun rôle d'arbitrage : la gouvernance risque de manquer de portage stratégique.`); }
+  if(parActeur[indexDRH] && (parActeur[indexDRH].R + parActeur[indexDRH].A) < 3){ alertes++; messages.push('⚠ La DRH est peu positionnée : le pilotage RH peut manquer de cohérence.'); }
+  if(parActeur[indexManager] && parActeur[indexManager].R < 2){ alertes++; messages.push('⚠ Les managers sont peu responsabilisés : le lien avec le terrain peut être insuffisant.'); }
+  if(parActeur[indexPrev] && parActeur[indexPrev].C < 3){ alertes++; messages.push(`⚠ La prévention / F3SCT est peu consultée : l'expertise prévention doit être sécurisée.`); }
+
+  if(messages.length === 0){
+    result.className = 'result good';
+    result.innerHTML = `<h3>Analyse de la gouvernance</h3><p>✔ Gouvernance cohérente : chaque étape comporte au moins un responsable opérationnel et une autorité d'arbitrage.</p><p>✔ La DRH, les managers, la prévention et la direction générale sont positionnés sur des rôles complémentaires.</p>`;
+  } else {
+    result.className = alertes > 2 ? 'result warn' : 'result soft';
+    result.innerHTML = `<h3>Analyse de la gouvernance</h3><ul>${messages.map(m=>`<li>${m}</li>`).join('')}</ul><p><strong>Conseil :</strong> vérifier qu'une autorité unique arbitre chaque étape et qu'un responsable opérationnel est identifié.</p>`;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", function(){ resetAll(); initialiserGouvernanceRaci(); });
+function idsFormulaireVierge(){
+  return ["fvCharge","fvConsignes","fvMoyens","fvReconnaissance","fvManagement","fvCooperation","fvTensions","fvMateriel","fvFormation","fvAutonomie"];
+}
+
+function clampNoteFormulaireVierge(){
+  idsFormulaireVierge().forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    let val = Number(el.value || 0);
+    if(val < 0) val = 0;
+    if(val > 10) val = 10;
+    if(el.value !== "") el.value = val;
+  });
+}
+
+function scoreFormulaireVierge(){
+  clampNoteFormulaireVierge();
+  return idsFormulaireVierge().reduce((total,id)=> total + Number(document.getElementById(id).value || 0), 0);
+}
+
+function calculerFormulaireVierge(){
+  const score = scoreFormulaireVierge();
+  const agents = Number(document.getElementById("fvAgents").value || 0);
+  const repondants = Number(document.getElementById("fvRepondants").value || 0);
+  const participation = agents > 0 ? Math.round((repondants / agents) * 100) : 0;
+  const analyse = niveauVigilance(score);
+  const result = document.getElementById("formulaireViergeResult");
+  result.className = "result " + analyse.classe;
+  result.innerHTML = `
+    <h3>Résultat du formulaire</h3>
+    <div class="kpi">${score}/100</div>
+    <p><strong>Niveau :</strong> ${analyse.niveau}</p>
+    <p><strong>Taux de participation :</strong> ${participation}%</p>
+    <p><strong>Lecture :</strong> ${analyse.action}</p>
+    <p><strong>Formule :</strong> addition des 10 dimensions notées sur 10.</p>`;
+}
+
+function transfererViergeVersQuestionnaire(){
+  const map = {
+    fvPole:"pole", fvService:"service", fvResponsable:"chef", fvAgents:"agentsService", fvRepondants:"repondantsService",
+    fvCharge:"charge", fvConsignes:"consignes", fvMoyens:"moyens", fvReconnaissance:"reconnaissance", fvManagement:"management",
+    fvCooperation:"cooperation", fvTensions:"tensions", fvMateriel:"materiel", fvFormation:"formation", fvAutonomie:"autonomie"
+  };
+  Object.entries(map).forEach(([from,to]) => {
+    const src = document.getElementById(from);
+    const dst = document.getElementById(to);
+    if(src && dst) dst.value = src.value;
+  });
+  calculerFormulaireVierge();
+  openPanel("questionnaire");
+}
+
+function viderFormulaireVierge(){
+  document.querySelectorAll('#formulaireVierge input, #formulaireVierge textarea').forEach(el => el.value = '');
+  const result = document.getElementById("formulaireViergeResult");
+  if(result){ result.className = "result"; result.innerHTML = "Aucun score calculé."; }
+}
+
+</script>
+
+</body>
+</html>
